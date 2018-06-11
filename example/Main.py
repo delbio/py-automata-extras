@@ -2,7 +2,7 @@ import sys
 
 from automaton.core.Action import Action
 from automaton.core.Automaton import Automaton
-from automaton.buildet.XmlBuilder import XmlBuilder
+from automaton.builder.XmlBuilder import XmlBuilder
 
 sys.path.append('./actions')
 import actions.CopyFile

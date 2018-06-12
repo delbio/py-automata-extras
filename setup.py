@@ -29,6 +29,11 @@ def get_requirements(*args):
                 requirements.add(re.sub(r'\s+', '', line))
     return sorted(requirements)
 
+def get_absolute_path(*args):
+    """Transform relative pathnames into absolute pathnames."""
+    directory = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(directory, *args)
+
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
 

@@ -3,6 +3,7 @@ import sys
 from automaton.core.Action import Action
 from automaton.core.Automaton import Automaton
 from automaton.builder.XmlBuilder import XmlBuilder
+from automaton.runner.Runner import SimpleRunner
 
 sys.path.append('./actions')
 import actions.CopyFile
@@ -19,7 +20,7 @@ def build_from_xml(filepath):
     root = parse(filepath).getroot()
     automaton = builder.newObjectFromXmlElement(root)
     print('Loaded Automaton: \n', automaton.__str__())
-    runner(automaton)
+    return automaton
 
 def runner(automaton):
     print('Start from:\t', automaton.getCurrentState())
@@ -36,4 +37,6 @@ def runner(automaton):
         print('Current State:\t',automaton.getCurrentState())
 
 if __name__ == "__main__":
-    build_from_xml('config.xml')
+   automaton =  build_from_xml('config.xml')
+   runner = SimpleRunner()
+   runner.run(automaton)

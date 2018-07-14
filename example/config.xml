@@ -10,6 +10,9 @@
         <Action module="actions.CopyFile" name="CopyFile" source="NotStarted" target="CopiedFile">
             <Property name="filepath">ciao.txt</Property>
         </Action>
+        <Action module="Placeholder" name="PlaceHolderAction" source="NotStarted" target="CopiedFile">
+            <Property name="actionName">Si</Property>
+        </Action>
         <Action module="automaton.core.Action" name="Action" source="CopiedFile" target="CopiedFile" />
         <Action module="actions.GenerateTextFile" name="GenerateTextFile" source="CopiedFile" target="GeneratedTextFile" />
         <Action module="actions.CheckExit" name="CheckExit" source="GeneratedTextFile" target="ExitChecked" />

@@ -4,7 +4,7 @@
         <State module="States" name="NotStarted" type="BEGIN" />
         <State module="States" name="CopiedFile" type="-" />
         <State module="Placeholder" name="PlaceHolderState" type="-" >
-		<Property name="actionName">Domanda</Property>
+		<Property name="stateName">Domanda</Property>
 	</State>
         <State module="States" name="GeneratedTextFile" type="-" />
         <State module="States" name="ExitChecked" type="END" />

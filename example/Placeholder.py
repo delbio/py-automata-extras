@@ -18,11 +18,11 @@ from automaton.core.State import State
 
 class PlaceHolderState(State):
     def __init__(self):
-        self.actionName = None
+        self.stateName = None
         super(PlaceHolderState, self).__init__()
         pass
 
     def getName(self):
-        return self.actionName
+        return self.stateName
 
 

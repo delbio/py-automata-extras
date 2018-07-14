@@ -9,6 +9,20 @@ class PlaceHolderAction(Action):
 
     def getName(self):
         return self.actionName
+
     def execute(self, *arg):
         print(self.getName())
         pass
+
+from automaton.core.State import State
+
+class PlaceHolderState(State):
+    def __init__(self):
+        self.actionName = None
+        super(PlaceHolderState, self).__init__()
+        pass
+
+    def getName(self):
+        return self.actionName
+
+

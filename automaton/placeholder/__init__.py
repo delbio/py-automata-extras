@@ -1,4 +1,5 @@
 from automaton.core.Action import Action
+from automaton.core.State import State
 
 
 class PlaceHolderAction(Action):
@@ -14,7 +15,6 @@ class PlaceHolderAction(Action):
         print(self.getName())
         pass
 
-from automaton.core.State import State
 
 class PlaceHolderState(State):
     def __init__(self):
@@ -24,5 +24,3 @@ class PlaceHolderState(State):
 
     def getName(self):
         return self.stateName
-
-

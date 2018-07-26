@@ -1,4 +1,5 @@
 import sys
+import argparse
 
 from defusedxml.ElementTree import parse
 
@@ -15,8 +16,10 @@ def build_from_xml(filepath):
     print('Loaded Automaton: \n', automaton.__str__())
     return automaton
 
+def getConfigFilePathFromArgs():
+    return 'config.xml'
 
 if __name__ == "__main__":
-    automaton =  build_from_xml('config.xml')
+    automaton =  build_from_xml(getConfigFilePathFromArgs())
     runner = SimpleRunner()
     runner.run(automaton)

@@ -3,7 +3,7 @@
     <States>
         <State module="States" name="NotStarted" type="BEGIN" />
         <State module="States" name="CopiedFile" type="-" />
-        <State module="automaton.placeholder.Placeholder" name="PlaceHolderState" type="-" >
+        <State module="automaton.placeholder" name="PlaceHolderState" type="-" >
             <Property name="stateName">Domanda</Property>
         </State>
         <State module="States" name="GeneratedTextFile" type="-" />
@@ -13,13 +13,13 @@
         <Action module="actions.CopyFile" name="CopyFile" source="NotStarted" target="CopiedFile">
             <Property name="filepath">ciao.txt</Property>
         </Action>
-        <Action module="automaton.placeholder.Placeholder" name="PlaceHolderAction" source="NotStarted" target="Domanda">
+        <Action module="automaton.placeholder" name="PlaceHolderAction" source="NotStarted" target="Domanda">
             <Property name="actionName">Si</Property>
         </Action>
-        <Action module="automaton.placeholder.Placeholder" name="PlaceHolderAction" source="Domanda" target="Domanda">
+        <Action module="automaton.placeholder" name="PlaceHolderAction" source="Domanda" target="Domanda">
             <Property name="actionName">Si</Property>
         </Action>
-        <Action module="automaton.placeholder.Placeholder" name="PlaceHolderAction" source="Domanda" target="CopiedFile">
+        <Action module="automaton.placeholder" name="PlaceHolderAction" source="Domanda" target="CopiedFile">
             <Property name="actionName">No</Property>
         </Action>
         <Action module="automaton.core.Action" name="Action" source="CopiedFile" target="CopiedFile" />

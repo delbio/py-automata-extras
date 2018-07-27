@@ -17,7 +17,10 @@ def build_from_xml(filepath):
     return automaton
 
 def getConfigFilePathFromArgs():
-    return 'config.xml'
+    parser = argparse.ArgumentParser(description='CLI Automaton Runner')
+    parser.add_argument('config', help='config file path')
+    args = parser.parse_args()
+    return args.config
 
 if __name__ == "__main__":
     automaton =  build_from_xml(getConfigFilePathFromArgs())

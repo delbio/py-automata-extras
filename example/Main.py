@@ -1,5 +1,6 @@
 import sys
 import argparse
+from pprint import pprint
 
 from defusedxml.ElementTree import parse
 
@@ -16,13 +17,18 @@ def build_from_xml(filepath):
     print('Loaded Automaton: \n', automaton.__str__())
     return automaton
 
-def getConfigFilePathFromArgs():
+def getArgs():
     parser = argparse.ArgumentParser(description='CLI Automaton Runner')
     parser.add_argument('config', help='config file path')
-    args = parser.parse_args()
-    return args.config
+    parser.add_argument('-i', dest='interactive',
+            action='store_const', const=True, default=False,
+            help='run automaton into interactive mode'
+    )
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    automaton =  build_from_xml(getConfigFilePathFromArgs())
+    args = getArgs()
+    pprint(vars(args))
+    automaton =  build_from_xml(args.config)
     runner = SimpleRunner()
-    runner.run(automaton)
+    runner.run(automaton, args.interactive)

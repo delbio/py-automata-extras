@@ -1,36 +1,68 @@
-
-def select_action_from_list(nextInputs,interactive):
-    if not interactive and len(nextInputs) == 1:
-        return nextInputs[0]
-
-    actionName = input('User must select an action: ' + ', '.join(list(nextInputs)) + ' : ')
-    try:
-        i = int(actionName)
-        if 0 <= i < len(list(nextInputs)):
-            return nextInputs[i]
-        else:
-            print('\tSelect a number from 0 to ', len(list(nextInputs)) -1)
-            return select_action_from_list(nextInputs,interactive)
-    except ValueError as e:
+class ExecutionResult:
+    def __init__(self, automaton, error_handler, next_action_selector, context, interactive):
+        self.automaton = automaton
+        self.interactive = interactive
+        self.context = context
         pass
 
-    if actionName in nextInputs:
-        return actionName
+    def startExecution(self):
+        print('Start from:\t', self.automaton.getCurrentState())
+        pass
 
-    return select_action_from_list(nextInputs,interactive)
+    def nextCurrentState(self, state):
+        print('Current State:\t', state)
+        pass
+
+    def doAction(self, action_name, args):
+        print('Exec Action: ', action_name, ' with args: ', args)
+        pass
+
+    def stopExecution(self):
+        print('Stopped into:\t', self.automaton.getCurrentState())
+        pass
 
 
-class SimpleRunner():
+class Runner:
     def __init__(self):
         pass
 
-    def run(self, automaton, interactive):
-        print('Start from:\t', automaton.getCurrentState())
-        while not automaton.isFinished():
-            nextInputs = automaton.getCurrentState().getNextInputs()
-            print("\tNext inputs:\t" + ', '.join(list(nextInputs)))
-            actionName = select_action_from_list(nextInputs,interactive)
-            automaton.doAction(actionName)
-            automaton.move(actionName)
-            print('Current State:\t',automaton.getCurrentState())
+    def exec_action(self, automaton, action_name, logger, error_handler, next_action_selector, context):
+        try:
+            state = automaton.getCurrentState()
+            args = context.get_action_args(state, action_name)
+            logger.doAction(action_name, args)
+            result = automaton.doAction(action_name, **args)
+            context.update(state, action_name, args, result)
+            automaton.move(action_name)
+            logger.nextCurrentState(automaton.getCurrentState())
+        except Exception as e:
+            if error_handler is None:
+                raise e
+            self.exec_action(
+                automaton,
+                error_handler.handleError(automaton.getCurrentState(), action_name, e),
+                logger,
+                error_handler,
+                next_action_selector,
+                context
+            )
+        pass
 
+    def run(self, automaton, error_handler, next_action_selector, context, interactive):
+        result = ExecutionResult(
+            automaton, error_handler, next_action_selector, context, interactive
+        )
+        result.startExecution()
+        try:
+            while not automaton.isFinished():
+                action_name = next_action_selector.nextAction(automaton.getCurrentState(), interactive)
+                self.exec_action(
+                    automaton,
+                    action_name,
+                    result,
+                    error_handler,
+                    next_action_selector,
+                    context
+                )
+        finally:
+            result.stopExecution()

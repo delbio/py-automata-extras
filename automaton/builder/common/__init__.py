@@ -47,3 +47,9 @@ def getclass(module_name, class_name):
     module = importlib.import_module(module_name)
     return getattr(module, class_name)
 
+def setPropertyOnObject(theTag, startingFromThis, o):
+    pl = startingFromThis.findall(theTag)
+    for propertyElement in pl:
+        propertyName = propertyElement.attrib['name']
+        propertyValue = propertyElement.text
+        setattr(o, propertyName, propertyValue)

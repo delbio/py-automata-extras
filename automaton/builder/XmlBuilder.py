@@ -1,13 +1,5 @@
-# inspired by:
-# https://stackoverflow.com/questions/4821104/python-dynamic-instantiation-from-string-name-of-a-class-in-dynamically-imported
-import importlib
+from automaton.builder.common import getClassFromElement, getclass, setPropertyOnObject
 
-def getClassFromElement(element):
-    return getclass(element.attrib['module'], element.attrib['name'])
-
-def getclass(module_name, class_name):
-    module = importlib.import_module(module_name)
-    return getattr(module, class_name)
 
 # Manage State Type actions
 
@@ -21,16 +13,9 @@ def nop(a, s, t):
     pass
 
 def unknownStateType(a, s, t):
-    raise ValueError("state type unknown: " + t ) 
+    raise ValueError("state type unknown: " + t )
 
-def setPropertyOnObject(theTag, startingFromThis, o):
-    pl = startingFromThis.findall(theTag)
-    for propertyElement in pl:
-        propertyName = propertyElement.attrib['name']
-        propertyValue = propertyElement.text
-        setattr(o, propertyName, propertyValue)
-
-class XmlBuilder():
+class AutomatonXmlBuilder():
     def __init__(self):
         pass
 

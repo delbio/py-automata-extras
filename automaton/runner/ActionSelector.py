@@ -1,4 +1,4 @@
-from automaton.builder.XmlBuilder import getClassFromElement, getclass, setPropertyOnObject
+from automaton.builder.common import getClassFromElement, getclass, setPropertyOnObject
 
 
 class NoInteractiveModeNoMappingForMultipleNextInputError(ValueError):

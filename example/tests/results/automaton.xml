@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Automaton module="automaton.core.Automaton" name="Automaton" local-module-enabled="" >
+    <States>
+        <State module="automaton.placeholder" name="PlaceHolderState" type="BEGIN" ><Property name="stateName">Machine_Ready</Property></State>
+        <State module="automaton.placeholder" name="PlaceHolderState" type="-" ><Property name="stateName">Single_result</Property></State>
+        <State module="automaton.placeholder" name="PlaceHolderState" type="-" ><Property name="stateName">Dictionary_result</Property></State>
+        <State module="automaton.placeholder" name="PlaceHolderState" type="END" ><Property name="stateName">Test_completed</Property></State>
+    </States>
+    <Actions>
+        <Action module="Actions" name="SingleResultAction" source="Machine_Ready" target="Single_result" ><Property name="actionName">SingleResultAction</Property></Action>
+        <Action module="Actions" name="DictionaryResultAction" source="Single_result" target="Dictionary_result" ><Property name="actionName">DictionaryResultAction</Property></Action>
+        <Action module="Actions" name="ValidateActionResult" source="Dictionary_result" target="Test_completed" ><Property name="actionName">validate_action_result</Property></Action>
+    </Actions>
+    <Context>
+        <States>
+            <State name="Machine_Ready">
+                <Actions>
+                    <Action name="SingleResultAction">
+                        <args>
+                            <param name="source_queue_path">ciao</param>
+                            <param name="dest_queue_path">Acquired_item</param>
+                        </args>
+                        <results to="dest_file_path" />
+                    </Action>
+                </Actions>
+            </State>
+            <State name="Single_result">
+                <Actions>
+                    <Action name="DictionaryResultAction">
+                        <args>
+                            <param name="source_queue_path">ciao</param>
+                            <param name="dest_queue_path">Acquired_item</param>
+                        </args>
+                        <results>
+                            <property result="dest" context="dest_queue" />
+                        </results>
+                    </Action>
+                </Actions>
+            </State>
+            <State name="Dictionary_result">
+                <Actions>
+                    <Action name="validate_action_result">
+                        <args>
+                            <context name="dest_file_path" param="file_path" />
+                            <context name="dest_queue" param="dest_queue" />
+                        </args>
+                    </Action>
+                </Actions>
+            </State>
+        </States>
+    </Context>
+    <ActionSelector>
+        <States>
+            <State name="Machine_Ready" >exec_action</State>
+            <State name="Action_executed" >validate_action_result</State>
+        </States>
+    </ActionSelector>
+</Automaton>

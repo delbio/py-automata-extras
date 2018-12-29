@@ -2,12 +2,12 @@ import argparse
 
 from defusedxml.ElementTree import parse
 
+from automaton.scheduler.execution.error.ErrorHandlerXmlBuilder import ErrorHandlerXmlBuilder
+from automaton.scheduler.context.XmlContextBuilder import XmlContextBuilder
+from automaton.scheduler.Runner import Runner
 from automaton.builder.common import allow_local_module_if_requested
 from automaton.builder.XmlBuilder import AutomatonXmlBuilder
-from automaton.runner.Runner import Runner
-from automaton.runner.ErrorHandler import ErrorHandlerXmlBuilder
 from automaton.runner.ActionSelector import NextActionSelectorXmlBuilder
-from automaton.runner.Context import XmlContextBuilder
 
 def build_from_xml(filepath):
     root = parse(filepath).getroot()

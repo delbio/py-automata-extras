@@ -1,5 +1,5 @@
 from automaton.scheduler.execution.nextaction.NextActionSelector import NextActionSelector
-from automaton.builder.common import getClassFromElement, getclass, setPropertyOnObject
+from automaton.builder.xml import getClassFromElement, getclass, setPropertyOnObject
 
 
 # Per le esecuzioni non interattive

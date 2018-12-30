@@ -1,5 +1,5 @@
 from automaton.scheduler.context.Context import Context
-from automaton.builder.common import getClassFromElement, getclass, setPropertyOnObject
+from automaton.builder.xml import getClassFromElement, getclass, setPropertyOnObject
 
 class XmlContextBuilder():
     def __init__(self):

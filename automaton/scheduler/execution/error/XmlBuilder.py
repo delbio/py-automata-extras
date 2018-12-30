@@ -1,5 +1,5 @@
 from automaton.scheduler.execution.error.ErrorHandler import ActionExecutionErrorHandler
-from automaton.builder.common import getClassFromElement, getclass, setPropertyOnObject
+from automaton.builder.xml import getClassFromElement, getclass, setPropertyOnObject
 
 class ErrorHandlerXmlBuilder():
     def __init__(self):

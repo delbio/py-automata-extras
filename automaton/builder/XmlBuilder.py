@@ -1,4 +1,4 @@
-from automaton.builder.common import getClassFromElement, getclass, setPropertyOnObject
+from automaton.builder.xml import getClassFromElement, getclass, setPropertyOnObject
 
 
 # Manage State Type actions

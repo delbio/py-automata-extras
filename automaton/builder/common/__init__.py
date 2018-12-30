@@ -50,6 +50,6 @@ def getclass(module_name, class_name):
 def setPropertyOnObject(theTag, startingFromThis, o):
     pl = startingFromThis.findall(theTag)
     for propertyElement in pl:
-        propertyName = propertyElement.attrib['name']
-        propertyValue = propertyElement.text
-        setattr(o, propertyName, propertyValue)
+        property_name = propertyElement.attrib['name']
+        property_value = propertyElement.text
+        setattr(o, property_name, property_value)

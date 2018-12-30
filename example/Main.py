@@ -9,11 +9,13 @@ from automaton.scheduler.Runner import Runner
 from automaton.builder.common import allow_local_module_if_requested
 from automaton.builder.XmlBuilder import AutomatonXmlBuilder
 
-def build_from_xml(filepath):
+
+def build_from_xml(interactive, filepath):
     root = parse(filepath).getroot()
     allow_local_module_if_requested(filepath, root)
     builder = AutomatonXmlBuilder()
     automaton = builder.newObjectFromXmlElement(root)
+    automaton.setCurrentState(automaton.getBegin())
     error_handler_builder = ErrorHandlerXmlBuilder()
     error_handler = error_handler_builder.newObjectFromXmlElement(root)
     next_action_selector_builder = NextActionSelectorXmlBuilder()
@@ -25,6 +27,7 @@ def build_from_xml(filepath):
         'error_handler': error_handler,
         'next_action_selector': next_action_selector,
         'context': context,
+        'interactive': interactive
     }
 
 
@@ -40,7 +43,6 @@ def getArgs():
 
 if __name__ == "__main__":
     args = getArgs()
-    components = build_from_xml(args.config)
-    components['interactive'] = args.interactive
+    components = build_from_xml(args.interactive, args.config)
     runner = Runner()
     runner.run(**components)

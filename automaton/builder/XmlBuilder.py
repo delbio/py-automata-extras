@@ -46,7 +46,5 @@ class AutomatonXmlBuilder():
             setPropertyOnObject('Property', actionElement, action)
             sourceState.addAction(action)
 
-
-        automaton.setCurrentState(automaton.getBegin())
         automaton.checkIntegrity()
         return automaton
